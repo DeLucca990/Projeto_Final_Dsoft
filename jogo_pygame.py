@@ -4,8 +4,6 @@ from personagens_class import *
 from arremessaveis_class import Quizz
 from plataforma_class import *
 
-#eaeee meuu bomm
-
 #Iniciando o Game:
 pygame.init()
 
