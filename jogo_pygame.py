@@ -1,8 +1,8 @@
 import pygame
 import random
-from personagens_class import Personagem
+from personagens_class import *
 from arremessaveis_class import Quizz
-from plataforma_class import Plataforma
+from plataforma_class import *
 
 #Iniciando o Game:
 pygame.init()
@@ -18,7 +18,8 @@ grupo_de_play=pygame.sprite.Group()
 grupo_de_arre=pygame.sprite.Group()
 grupo_de_plataforma=pygame.sprite.Group()
 
-mesa=Plataforma(grupo_de_plataforma)
+plat_movel=Plataforma(grupo_de_plataforma)
+plat_fix=Plataforma2(grupo_de_plataforma)
 jogador=Personagem(grupo_de_play)
 
 game=True
@@ -32,8 +33,10 @@ while game:
         if event.type==pygame.QUIT:
             game=False
         jogador.eventos_teclado(event)
+
     #Update Lógica:
     grupo_de_play.update()
+    grupo_de_plataforma.update()
     timer+=1
     if timer>30:
         timer=0
@@ -42,8 +45,7 @@ while game:
 
     #Colisões:
     colisao_jogador_arre=pygame.sprite.spritecollide(jogador,grupo_de_arre,True,pygame.sprite.collide_mask)
-    colisao_jogador_plat=pygame.sprite.spritecollide(jogador,grupo_de_plataforma,False,pygame.sprite.collide_mask)
-    
+    colisao_jogador_mesa=pygame.sprite.spritecollide(jogador,grupo_de_plataforma,False,pygame.sprite.collide_mask)
 
     #Draw:
     window.fill((4,71 ,13))
