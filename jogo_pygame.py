@@ -18,9 +18,15 @@ grupo_de_play=pygame.sprite.Group()
 grupo_de_arre=pygame.sprite.Group()
 grupo_de_plataforma=pygame.sprite.Group()
 
-plat_movel=Plataforma(grupo_de_plataforma)
-plat_fix=Plataforma2(grupo_de_plataforma)
-jogador=Personagem(grupo_de_play)
+for pos_inicial in range (100,400,300):
+    plat_movel=Plataforma(pos_inicial)
+    grupo_de_plataforma.add(plat_movel)
+
+plat_fix=Plataforma2()
+grupo_de_plataforma.add(plat_fix)
+
+jogador=Personagem()
+grupo_de_play.add(jogador)
 
 game=True
 timer=0
@@ -46,6 +52,15 @@ while game:
     #Colisões:
     colisao_jogador_arre=pygame.sprite.spritecollide(jogador,grupo_de_arre,True,pygame.sprite.collide_mask)
     colisao_jogador_mesa=pygame.sprite.spritecollide(jogador,grupo_de_plataforma,False,pygame.sprite.collide_mask)
+    for plataforma in colisao_jogador_mesa:
+        if jogador.horizontal_state=='left':
+            jogador.rect.x+=2
+        if jogador.horizontal_state == 'right':
+            jogador.rect.x-=2
+        if jogador.vertical_state == 'caindo':
+            jogador.rect.y-=2
+            jogador.vel_y=2
+            jogador.rect.x+=plataforma.vel_x
 
     #Draw:
     window.fill((4,71 ,13))
