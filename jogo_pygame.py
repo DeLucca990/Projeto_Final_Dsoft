@@ -4,6 +4,8 @@ from personagens_class import *
 from arremessaveis_class import Quizz
 from plataforma_class import *
 
+#eaeee meuu bomm
+
 #Iniciando o Game:
 pygame.init()
 
@@ -49,7 +51,7 @@ while game:
 
     #Draw:
     window.fill((4,71 ,13))
-    grupo_de_play.draw(window)
     grupo_de_plataforma.draw(window)
+    grupo_de_play.draw(window)
     pygame.display.update()
 pygame.quit()
