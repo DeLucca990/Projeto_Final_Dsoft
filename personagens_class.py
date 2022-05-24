@@ -8,19 +8,19 @@ class Personagem(pygame.sprite.Sprite):
         self.lado='parado direita'
         self.image=pygame.image.load('img/pulga_parado_d.png')
         self.image=pygame.transform.scale(self.image,[70,70])
-        self.rect=pygame.Rect(0,600,100,100)
+        self.rect=pygame.Rect(0,600,60,60)
         self.vel_x=0
         self.vel_y=0
         self.gravidade=0.1
         self.vertical_state = 'caindo'
-
+        
     def eventos_teclado(self,event):
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_SPACE:
                 self.lado='pulando'
                 self.image=pygame.image.load('img/pulga_pulo.png')
                 self.image=pygame.transform.scale(self.image,[70,70])
-                self.vel_y=-4 
+                self.vel_y=-3 
                 self.vertical_state = 'pulando'
 
     def update(self,*args):
@@ -53,12 +53,12 @@ class Personagem(pygame.sprite.Sprite):
 
         if self.rect.top<0:
             self.rect.top=0
-        if self.rect.bottom>620:
-            self.rect.bottom=620
+        if self.rect.bottom>590:
+            self.rect.bottom=590
         if self.rect.left<0:
             self.rect.left=0
-        if self.rect.right>1060:
-            self.rect.right=1060
-        
+        if self.rect.right>1030:
+            self.rect.right=1030
+            
         
             
