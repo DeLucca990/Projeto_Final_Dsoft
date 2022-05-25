@@ -27,8 +27,7 @@ for pos_inicial in range (100,600,150):
 jogador=Personagem()
 grupo_de_play.add(jogador)
 
-
-#Itens relevantes:
+#Itens relevantes: 
 vidas=5
 game=True
 timer=0
@@ -47,7 +46,6 @@ window.blit(tela_i,(0,0))
 pygame.display.update()
 
 font = pygame.font.Font('freesansbold.ttf',32)
-
 while intro:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
