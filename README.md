@@ -1,2 +1,2 @@
 # Projeto_Final_Dsoft
-Utilizando ferramentas do pygame para fazer um jogo
+Utilizando o pygame para fazer um jogo no estilo Donkey kong clássico, com adaptações para a aula de DeSoft. Espero que curta! =)
