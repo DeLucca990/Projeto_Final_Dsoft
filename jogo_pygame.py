@@ -28,16 +28,23 @@ for pos_inicial in range (100,600,150):
 jogador=Personagem()
 grupo_de_play.add(jogador)
 
-#Itens relevantes:
+#Itens relevantes: 
 vidas=5
 game=True
 timer=0
 clock=pygame.time.Clock()
 
 #Tela inicial:
+tempo_entre_imagens = 0
+i = 0
+lista_img_ini=['img/tela_ini1.png','img/tela_ini2.png','img/tela_ini3.png','img/tela_ini4.png']
 clock=pygame.time.Clock()
-tela_i=pygame.image.load('img/tela_ini.gif')
+timer_init = pygame.time.Clock()
 intro=True
+
+tela_i=pygame.image.load(lista_img_ini[0])
+window.blit(tela_i,(0,0))
+pygame.display.update()
 
 while intro:
     for event in pygame.event.get():
@@ -48,8 +55,15 @@ while intro:
             if event.key==pygame.K_SPACE:
                 intro=False
     clock.tick(60)
-    window.blit(tela_i,(0,0))
-    pygame.display.update()
+    tempo_entre_imagens += timer_init.tick()
+    if tempo_entre_imagens > 250:
+        tela_i=pygame.image.load(lista_img_ini[i])
+        window.blit(tela_i,(0,0))
+        pygame.display.update()
+        i += 1
+        tempo_entre_imagens = 0
+        if i > 3:
+            i = 0
 
 #Loop principal:
 while game:

@@ -12,4 +12,4 @@ class Plataforma(pygame.sprite.Sprite):
         if self.rect.x>=900 or self.rect.x<10:
             self.vel_x*=-1
         self.rect.left+=self.vel_x
-    
+
