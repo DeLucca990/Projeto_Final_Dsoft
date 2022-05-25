@@ -6,7 +6,6 @@ from plataforma_class import *
 
 #Iniciando o Game:
 pygame.init()
-
 LARGURA=1024
 ALTURA=600
 
@@ -28,6 +27,7 @@ for pos_inicial in range (100,600,150):
 jogador=Personagem()
 grupo_de_play.add(jogador)
 
+
 #Itens relevantes:
 vidas=5
 game=True
@@ -35,9 +35,18 @@ timer=0
 clock=pygame.time.Clock()
 
 #Tela inicial:
+tempo_entre_imagens = 0
+i = 0
+lista_img_ini=['img/tela_ini1.png','img/tela_ini2.png','img/tela_ini3.png','img/tela_ini4.png']
 clock=pygame.time.Clock()
-tela_i=pygame.image.load('img/tela_ini.gif')
+timer_init = pygame.time.Clock()
 intro=True
+
+tela_i=pygame.image.load(lista_img_ini[0])
+window.blit(tela_i,(0,0))
+pygame.display.update()
+
+font = pygame.font.Font('freesansbold.ttf',32)
 
 while intro:
     for event in pygame.event.get():
@@ -48,8 +57,15 @@ while intro:
             if event.key==pygame.K_SPACE:
                 intro=False
     clock.tick(60)
-    window.blit(tela_i,(0,0))
-    pygame.display.update()
+    tempo_entre_imagens += timer_init.tick()
+    if tempo_entre_imagens > 250:
+        tela_i=pygame.image.load(lista_img_ini[i])
+        window.blit(tela_i,(0,0))
+        pygame.display.update()
+        i += 1
+        tempo_entre_imagens = 0
+        if i > 3:
+            i = 0
 
 #Loop principal:
 while game:
@@ -99,19 +115,26 @@ while game:
             jogador.rect.right=plat_movel.rect.left
     #Colisão quizz:
     if len(colisao_jogador_quizz)>0:
-        vidas-=1
+        jogador.obter_dano(100)
 
     #Colisão eps:
     if len(colisao_jogador_ep)>0:
-        vidas-=2
+        jogador.obter_dano(300)
 
     #Colisão monitores:
     if len(colisao_jogador_vida)>0:
-        vidas+=1
+        jogador.obter_vida(200)
+
+    #Fonte
+    text = font.render(f'LP: {int(jogador.porcentagem_vida)}', True, (255,255,255))
+    text_rect = (20,35)
 
     #Draw:
     window.fill((4,71 ,13))
     grupo_de_plataforma.draw(window)
     grupo_de_play.draw(window)
+    pygame.draw.rect(window, (255,0,0), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
+    pygame.draw.rect(window,(255,255,255),(10,10,jogador.comprimento_barra_vida,25),4)
+    window.blit(text,text_rect)
     pygame.display.update()
 pygame.quit()

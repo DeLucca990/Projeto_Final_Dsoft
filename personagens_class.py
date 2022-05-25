@@ -18,6 +18,11 @@ class Personagem(pygame.sprite.Sprite):
         self.vel_y=0
         self.gravidade=0.1
         self.vertical_state = 'caindo'
+        self.vida_atual = 1000
+        self.vida_maxima = 1000
+        self.comprimento_barra_vida = 300
+        self.porcentagem_vida = self.vida_atual / self.vida_maxima * 100
+        self.vida_ratio = self.vida_maxima / self.comprimento_barra_vida
         
     def eventos_teclado(self,event):
         if event.type==pygame.KEYDOWN:
@@ -64,6 +69,21 @@ class Personagem(pygame.sprite.Sprite):
             self.rect.left=0
         if self.rect.right>1030:
             self.rect.right=1030
+
+        self.porcentagem_vida = self.vida_atual / self.vida_maxima * 100
+
+    def obter_dano(self,quantidade):
+        if self.vida_atual > 0:
+            self.vida_atual -= quantidade
+        if self.vida_atual <= 0:
+            self.vida_atual = 0
+
+    def obter_vida(self,quantidade):
+        if self.vida_atual < self.vida_maxima:
+            self.vida_atual += quantidade
+        if self.vida_atual >= self.vida_maxima:
+            self.vida_atual = self.vida_maxima
+        
             
         
             
