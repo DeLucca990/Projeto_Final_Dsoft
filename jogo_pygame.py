@@ -86,7 +86,7 @@ while game:
         if random.random()<0.05:
             novo_ep1=Ep1(grupo_de_play,grupo_de_ep)
             novo_ep2=Ep2(grupo_de_play,grupo_de_ep)
-        if random.random()<0.001:
+        if random.random()<0.01:
             novo_pedro=Pedro(grupo_de_play,grupo_de_monitores)
             novo_marcio=Marcio(grupo_de_play,grupo_de_monitores)
 
@@ -106,11 +106,25 @@ while game:
         if abs(jogador.rect.bottom-plat_movel.rect.top)<tolerancia_colisao:
             jogador.rect.y-=2
             jogador.vel_y=2
-            jogador.vel_x=1
+            jogador.vel_x=2
             jogador.rect.x+=plat_movel.vel_x
         if abs(jogador.rect.right-plat_movel.rect.left)<tolerancia_colisao:
             jogador.vel_x=0
             jogador.rect.right=plat_movel.rect.left
+
+    #Movimento do cenário:
+    if jogador.rect.top<=ALTURA/2.5:
+        jogador.rect.y+=abs(jogador.vel_y)
+        for plat in grupo_de_plataforma:
+            plat.rect.y+=abs(jogador.vel_y)
+            if plat.rect.top>=ALTURA:
+                plat.kill()
+
+    while len(grupo_de_plataforma)<4:
+        larg=random.randrange(50,100)
+        p=Plataforma(random.randrange(10,900-larg),random.randrange(-75,-30))
+        grupo_de_plataforma.add(p)
+    
     #Colisão quizz:
     if len(colisao_jogador_quizz)>0:
         jogador.obter_dano(100)
