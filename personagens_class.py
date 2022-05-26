@@ -28,10 +28,10 @@ class Personagem(pygame.sprite.Sprite):
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_SPACE:
                 self.lado='pulando'
+                self.vertical_state = 'pulando'
                 self.image=pygame.image.load('img/persona/pulga_pulo.png')
                 self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
                 self.vel_y=-4 
-                self.vertical_state = 'pulando'
 
     def update(self,*args):
         keys=pygame.key.get_pressed()
@@ -40,13 +40,11 @@ class Personagem(pygame.sprite.Sprite):
             self.image=pygame.image.load('img/persona/pulga_esquerda.png')
             self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
             self.vel_x =-5
-            self.horizontal_state = 'left'
         elif keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.lado='direita'
             self.image=pygame.image.load('img/persona/pulga_direita.png')
             self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
             self.vel_x = 5
-            self.horizontal_state = 'right'
         else:
             self.lado='parado direita'
             if self.vertical_state == 'caindo':
