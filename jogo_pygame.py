@@ -27,8 +27,8 @@ for pos_inicial in range (100,600,150):
 jogador=Personagem()
 grupo_de_play.add(jogador)
 
-#Itens relevantes: 
-vidas=5
+#Itens relevantes:
+font = pygame.font.Font('freesansbold.ttf',32)
 game=True
 timer=0
 clock=pygame.time.Clock()
@@ -36,7 +36,7 @@ clock=pygame.time.Clock()
 #Tela inicial:
 tempo_entre_imagens = 0
 i = 0
-lista_img_ini=['img/tela_ini1.png','img/tela_ini2.png','img/tela_ini3.png','img/tela_ini4.png']
+lista_img_ini=['img/telas/tela_ini1.png','img/telas/tela_ini2.png','img/telas/tela_ini3.png','img/telas/tela_ini4.png']
 clock=pygame.time.Clock()
 timer_init = pygame.time.Clock()
 intro=True
@@ -45,7 +45,6 @@ tela_i=pygame.image.load(lista_img_ini[0])
 window.blit(tela_i,(0,0))
 pygame.display.update()
 
-font = pygame.font.Font('freesansbold.ttf',32)
 while intro:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:

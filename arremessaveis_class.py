@@ -5,7 +5,7 @@ class Quizz(pygame.sprite.Sprite):
     def __init__(self, *groups):
         super().__init__(*groups)
         
-        self.image=pygame.image.load('img/quizz.png')
+        self.image=pygame.image.load('img/itens/quizz.png')
         self.image=pygame.transform.scale(self.image,[25,25])
         self.rect=pygame.Rect(50,50,100,100)
         self.speed= 1 + random.random()*2
@@ -21,7 +21,7 @@ class Ep1(pygame.sprite.Sprite):
     def __init__(self, *groups):
         super().__init__(*groups)
         
-        self.image=pygame.image.load('img/ep1.png')
+        self.image=pygame.image.load('img/itens/ep1.png')
         self.image=pygame.transform.scale(self.image,[25,25])
         self.rect=pygame.Rect(50,50,100,100)
         self.speed= 1 + random.random()*2
@@ -37,7 +37,7 @@ class Ep2(pygame.sprite.Sprite):
     def __init__(self, *groups):
         super().__init__(*groups)
         
-        self.image=pygame.image.load('img/ep2.png')
+        self.image=pygame.image.load('img/itens/ep2.png')
         self.image=pygame.transform.scale(self.image,[25,25])
         self.rect=pygame.Rect(50,50,100,100)
         self.speed= 1 + random.random()*2
@@ -53,7 +53,7 @@ class Marcio(pygame.sprite.Sprite):
     def __init__(self, *groups):
         super().__init__(*groups)
         
-        self.image=pygame.image.load('img/marcio.png')
+        self.image=pygame.image.load('img/itens/marcio.png')
         self.image=pygame.transform.scale(self.image,[25,25])
         self.rect=pygame.Rect(50,50,100,100)
         self.speed= 1 + random.random()*2
@@ -69,7 +69,7 @@ class Pedro(pygame.sprite.Sprite):
     def __init__(self, *groups):
         super().__init__(*groups)
         
-        self.image=pygame.image.load('img/pedro.png')
+        self.image=pygame.image.load('img/itens/pedro.png')
         self.image=pygame.transform.scale(self.image,[25,25])
         self.rect=pygame.Rect(50,50,100,100)
         self.speed= 1 + random.random()*2

@@ -11,7 +11,7 @@ class Personagem(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.lado='parado direita'
-        self.image=pygame.image.load('img/pulga_parado_d.png')
+        self.image=pygame.image.load('img/persona/pulga_parado_d.png')
         self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
         self.rect=pygame.Rect(0,600,LARGURA,ALTURA)
         self.vel_x=0
@@ -28,7 +28,7 @@ class Personagem(pygame.sprite.Sprite):
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_SPACE:
                 self.lado='pulando'
-                self.image=pygame.image.load('img/pulga_pulo.png')
+                self.image=pygame.image.load('img/persona/pulga_pulo.png')
                 self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
                 self.vel_y=-4 
                 self.vertical_state = 'pulando'
@@ -37,20 +37,20 @@ class Personagem(pygame.sprite.Sprite):
         keys=pygame.key.get_pressed()
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             self.lado='esquerda'
-            self.image=pygame.image.load('img/pulga_esquerda.png')
+            self.image=pygame.image.load('img/persona/pulga_esquerda.png')
             self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
             self.vel_x =-5
             self.horizontal_state = 'left'
         elif keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.lado='direita'
-            self.image=pygame.image.load('img/pulga_direita.png')
+            self.image=pygame.image.load('img/persona/pulga_direita.png')
             self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
             self.vel_x = 5
             self.horizontal_state = 'right'
         else:
             self.lado='parado direita'
             if self.vertical_state == 'caindo':
-                self.image=pygame.image.load('img/pulga_parado_d.png')
+                self.image=pygame.image.load('img/persona/pulga_parado_d.png')
                 self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
             self.vel_x=0
             self.horizontal_state = 'none'
