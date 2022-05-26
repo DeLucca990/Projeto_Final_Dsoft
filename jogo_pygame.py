@@ -28,7 +28,7 @@ jogador=Personagem()
 grupo_de_play.add(jogador)
 
 #Itens relevantes:
-font = pygame.font.Font('freesansbold.ttf',32)
+font = pygame.font.SysFont(pygame.font.get_fonts()[20],30)
 game=True
 timer=0
 clock=pygame.time.Clock()
@@ -40,7 +40,6 @@ lista_img_ini=['img/telas/tela_ini1.png','img/telas/tela_ini2.png','img/telas/te
 clock=pygame.time.Clock()
 timer_init = pygame.time.Clock()
 intro=True
-
 tela_i=pygame.image.load(lista_img_ini[0])
 window.blit(tela_i,(0,0))
 pygame.display.update()
