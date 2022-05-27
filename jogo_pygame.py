@@ -71,7 +71,6 @@ while intro:
         if i > 3:
             i = 0
 
-#print(pygame.font.get_fonts())
 #Loop principal:
 while game:
     clock.tick(60)
@@ -126,7 +125,7 @@ while game:
             plat.rect.y+=abs(jogador.vel_y)
             if plat.rect.top>=ALTURA:
                 plat.kill()
-                pontos+=10
+                pontos+=20
 
     while len(grupo_de_plataforma)<4:
         larg=random.randrange(50,100)
