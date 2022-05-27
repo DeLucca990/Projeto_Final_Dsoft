@@ -1,6 +1,9 @@
 import pygame
 from plataforma_class import *
 
+VX_RIGHT=5
+VX_LEFT=-VX_RIGHT
+
 ESCALA1=60
 ESCALA2=60
 
@@ -39,12 +42,12 @@ class Personagem(pygame.sprite.Sprite):
             self.lado='esquerda'
             self.image=pygame.image.load('img/persona/pulga_esquerda.png')
             self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-            self.vel_x =-5
+            self.vel_x =VX_LEFT
         elif keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.lado='direita'
             self.image=pygame.image.load('img/persona/pulga_direita.png')
             self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-            self.vel_x = 5
+            self.vel_x = VX_RIGHT
         else:
             self.lado='parado direita'
             if self.vertical_state == 'caindo':
