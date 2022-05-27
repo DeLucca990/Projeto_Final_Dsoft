@@ -24,12 +24,11 @@ for pos_inicial in range (100,600,150):
     plat_movel=Plataforma(pos_x,pos_inicial)
     grupo_de_plataforma.add(plat_movel)
 
-jogador=Personagem()
-grupo_de_play.add(jogador)
-
 #Itens relevantes:
 font = pygame.font.Font('img/itens/PressStart2P.ttf',24)
 game=True
+selecao=True
+intro=True
 timer=0
 clock=pygame.time.Clock()
 
@@ -45,10 +44,8 @@ def exibir_pontuacao(msg,tamanho,cor):
 tempo_entre_imagens = 0
 i = 0
 lista_img_ini=['img/telas/tela_ini1.png','img/telas/tela_ini2.png','img/telas/tela_ini3.png','img/telas/tela_ini4.png']
-clock=pygame.time.Clock()
 timer_init = pygame.time.Clock()
-intro=True
-tela_i=pygame.image.load(lista_img_ini[0])
+tela_i=pygame.image.load(lista_img_ini[i])
 window.blit(tela_i,(0,0))
 pygame.display.update()
 
@@ -56,13 +53,18 @@ while intro:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             intro=False
+            selecao=False
             game=False
         if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_ESCAPE:
+                intro=False
+                selecao=False
+                game=False
             if event.key==pygame.K_SPACE:
                 intro=False
     clock.tick(60)
     tempo_entre_imagens += timer_init.tick()
-    if tempo_entre_imagens > 250:
+    if tempo_entre_imagens > 300:
         tela_i=pygame.image.load(lista_img_ini[i])
         window.blit(tela_i,(0,0))
         pygame.display.update()
@@ -70,6 +72,49 @@ while intro:
         tempo_entre_imagens = 0
         if i > 3:
             i = 0
+
+#Tela seleção de personagem:
+tempo_entre_img_sel = 0
+w = 0
+lista_img_selecao=['img/telas/sel_1.png','img/telas/sel_2.png','img/telas/sel_3.png','img/telas/sel_4.png','img/telas/sel_5.png',
+'img/telas/sel_6.png','img/telas/sel_7.png','img/telas/sel_8.png','img/telas/sel_9.png','img/telas/sel_10.png','img/telas/sel_11.png',
+'img/telas/sel_12.png']
+timer_sel = pygame.time.Clock()
+tela_i_sel=pygame.image.load(lista_img_selecao[w])
+window.blit(tela_i_sel,(0,0))
+pygame.display.update()
+
+while selecao:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            selecao=False
+            game=False
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_ESCAPE:
+                selecao=False
+                game=False
+            if event.key==pygame.K_1:
+                jogador=Personagem_r()
+                grupo_de_play.add(jogador)
+                selecao=False
+            if event.key==pygame.K_2:
+                jogador=Personagem_p()
+                grupo_de_play.add(jogador)
+                selecao=False
+            if event.key==pygame.K_3:
+                jogador=Personagem_f()
+                grupo_de_play.add(jogador)
+                selecao=False
+    clock.tick(60)
+    tempo_entre_img_sel += timer_sel.tick()
+    if tempo_entre_img_sel >500:
+        tela_i_sel=pygame.image.load(lista_img_selecao[w])
+        window.blit(tela_i_sel,(0,0))
+        pygame.display.update()
+        w += 1
+        tempo_entre_img_sel = 0
+        if w > 11:
+            w = 0
 
 #Loop principal:
 while game:
@@ -79,6 +124,9 @@ while game:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             game=False
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_ESCAPE:
+                game=False
         jogador.eventos_teclado(event)
 
     #Update Lógica:
