@@ -33,6 +33,14 @@ game=True
 timer=0
 clock=pygame.time.Clock()
 
+#Placar de pontos:
+pontos=0
+def exibir_pontuacao(msg,tamanho,cor):
+    fonte=pygame.font.SysFont('comicsansms',tamanho,True,False)
+    mensagem=f'Score:{msg}'
+    texto_formatado=fonte.render(mensagem,True,cor)
+    return texto_formatado
+
 #Tela inicial:
 tempo_entre_imagens = 0
 i = 0
@@ -117,6 +125,7 @@ while game:
             plat.rect.y+=abs(jogador.vel_y)
             if plat.rect.top>=ALTURA:
                 plat.kill()
+                pontos+=10
 
     while len(grupo_de_plataforma)<4:
         larg=random.randrange(50,100)
@@ -138,6 +147,7 @@ while game:
     #Fonte
     text = font.render(f'LP: {int(jogador.porcentagem_vida)}', True, (255,255,255))
     text_rect = (20,35)
+    texto_pontos=exibir_pontuacao(pontos,40,(0,0,0))
 
     #Draw:
     window.fill((4,71 ,13))
@@ -145,6 +155,7 @@ while game:
     grupo_de_play.draw(window)
     pygame.draw.rect(window, (255,0,0), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
     pygame.draw.rect(window,(255,255,255),(10,10,jogador.comprimento_barra_vida,25),4)
+    window.blit(texto_pontos,(780,10))
     window.blit(text,text_rect)
     pygame.display.update()
 pygame.quit()
