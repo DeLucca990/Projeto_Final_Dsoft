@@ -28,7 +28,8 @@ jogador=Personagem()
 grupo_de_play.add(jogador)
 
 #Itens relevantes:
-font = pygame.font.SysFont(pygame.font.get_fonts()[20],30)
+#font = pygame.font.SysFont(pygame.font.get_fonts()[0],30)
+font = pygame.font.Font('img/itens/PressStart2P.ttf',24)
 game=True
 timer=0
 clock=pygame.time.Clock()
@@ -36,7 +37,7 @@ clock=pygame.time.Clock()
 #Placar de pontos:
 pontos=0
 def exibir_pontuacao(msg,tamanho,cor):
-    fonte=pygame.font.SysFont('comicsansms',tamanho,True,False)
+    fonte=pygame.font.Font('img/itens/PressStart2P.ttf',tamanho)
     mensagem=f'Score:{msg}'
     texto_formatado=fonte.render(mensagem,True,cor)
     return texto_formatado
@@ -71,6 +72,7 @@ while intro:
         if i > 3:
             i = 0
 
+#print(pygame.font.get_fonts())
 #Loop principal:
 while game:
     clock.tick(60)
@@ -145,9 +147,9 @@ while game:
         jogador.obter_vida(200)
 
     #Fonte
-    text = font.render(f'LP: {int(jogador.porcentagem_vida)}', True, (255,255,255))
-    text_rect = (20,35)
-    texto_pontos=exibir_pontuacao(pontos,40,(0,0,0))
+    text = font.render(f'LP:{int(jogador.porcentagem_vida)}', True, (255,255,255))
+    text_rect = (20,40)
+    texto_pontos=exibir_pontuacao(pontos,24,(0,0,0))
 
     #Draw:
     window.fill((4,71 ,13))
