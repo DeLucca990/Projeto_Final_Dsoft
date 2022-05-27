@@ -10,7 +10,7 @@ LARGURA=1024
 ALTURA=600
 
 window=pygame.display.set_mode((LARGURA,ALTURA))
-pygame.display.set_caption('Dsoft Kong')
+pygame.display.set_caption('Dessoft Kong')
 
 #Objetos:
 grupo_de_play=pygame.sprite.Group()
@@ -28,7 +28,6 @@ jogador=Personagem()
 grupo_de_play.add(jogador)
 
 #Itens relevantes:
-#font = pygame.font.SysFont(pygame.font.get_fonts()[0],30)
 font = pygame.font.Font('img/itens/PressStart2P.ttf',24)
 game=True
 timer=0
@@ -145,11 +144,14 @@ while game:
     #Colisão monitores:
     if len(colisao_jogador_vida)>0:
         jogador.obter_vida(200)
-
+    
+    #Zerar pontos:
+    if jogador.rect.bottom==590:
+        pontos=0
     #Fonte
     text = font.render(f'LP:{int(jogador.porcentagem_vida)}', True, (255,255,255))
     text_rect = (20,40)
-    texto_pontos=exibir_pontuacao(pontos,24,(0,0,0))
+    texto_pontos=exibir_pontuacao(pontos,24,(240, 159, 10))
 
     #Draw:
     window.fill((4,71 ,13))
