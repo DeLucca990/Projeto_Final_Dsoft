@@ -149,6 +149,9 @@ while game:
     colisao_jogador_ep=pygame.sprite.spritecollide(jogador,grupo_de_ep,True,pygame.sprite.collide_mask)
     colisao_jogador_vida=pygame.sprite.spritecollide(jogador,grupo_de_monitores,True,pygame.sprite.collide_mask)
     colisao_jogador_mesa=pygame.sprite.spritecollide(jogador,grupo_de_plataforma,False)
+    for plat in grupo_de_plataforma:
+        colisao_ep_plat=pygame.sprite.spritecollide(plat,grupo_de_ep,True,pygame.sprite.collide_mask)
+
     #Colisão plataforma móvel:
     tolerancia_colisao=10
     for plat_movel in colisao_jogador_mesa:
