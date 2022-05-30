@@ -27,6 +27,7 @@ for pos_inicial in range (100,700,150):
 
 #Itens relevantes:
 font = pygame.font.Font('img/itens/PressStart2P.ttf',24)
+fundo=pygame.image.load('img/telas/img_fundo.png')
 game=True
 selecao=True
 intro=True
@@ -278,7 +279,7 @@ while game:
     texto_pontos=exibir_pontuacao(pontos,24,(240, 159, 10))
 
     #Draw:
-    window.fill((4,71 ,13))
+    window.blit(fundo,(0,0))
     grupo_de_plataforma.draw(window)
     grupo_de_play.draw(window)
     pygame.draw.rect(window, (255,0,0), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
