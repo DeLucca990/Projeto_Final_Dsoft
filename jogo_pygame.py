@@ -29,6 +29,7 @@ font = pygame.font.Font('img/itens/PressStart2P.ttf',24)
 game=True
 selecao=True
 intro=True
+tutorial=True
 timer=0
 clock=pygame.time.Clock()
 
@@ -72,6 +73,44 @@ while intro:
         tempo_entre_imagens = 0
         if i > 3:
             i = 0
+
+#Tela Tutorial:
+tempo_entre_img_tut = 0
+t = 0
+lista_img_tut=['img/telas/tut_1.png','img/telas/tut_2.png','img/telas/tut_3.png','img/telas/tut_4.png','img/telas/tut_5.png',
+'img/telas/tut_6.png','img/telas/tut_7.png','img/telas/tut_8.png','img/telas/tut_9.png','img/telas/tut_10.png','img/telas/tut_11.png',
+'img/telas/tut_12.png','img/telas/tut_13.png','img/telas/tut_14.png','img/telas/tut_15.png','img/telas/tut_16.png',
+'img/telas/tut_17.png']
+timer_tut = pygame.time.Clock()
+tela_i_tut=pygame.image.load(lista_img_tut[t])
+window.blit(tela_i_tut,(0,0))
+pygame.display.update()
+
+while tutorial:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            intro=False
+            selecao=False
+            tutorial=False
+            game=False
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_ESCAPE:
+                intro=False
+                selecao=False
+                tutorial=False
+                game=False
+            if event.key==pygame.K_SPACE:
+                tutorial=False
+    clock.tick(60)
+    tempo_entre_img_tut += timer_tut.tick()
+    if tempo_entre_img_tut > 1000:
+        tela_i_tut=pygame.image.load(lista_img_tut[t])
+        window.blit(tela_i_tut,(0,0))
+        pygame.display.update()
+        t += 1
+        tempo_entre_img_tut = 0
+        if t > 16:
+            t = 0
 
 #Tela seleção de personagem:
 tempo_entre_img_sel = 0
