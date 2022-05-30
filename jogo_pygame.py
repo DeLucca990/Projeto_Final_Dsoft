@@ -6,6 +6,7 @@ from plataforma_class import *
 
 #Iniciando o Game:
 pygame.init()
+pygame.mixer.init()
 LARGURA=1024
 ALTURA=600
 
@@ -19,7 +20,7 @@ grupo_de_quizz=pygame.sprite.Group()
 grupo_de_monitores=pygame.sprite.Group()
 grupo_de_plataforma=pygame.sprite.Group()
                          #ini  #fim #gap
-for pos_inicial in range (100,600,150):
+for pos_inicial in range (100,700,150):
     pos_x=random.randint(10,900)
     plat_movel=Plataforma(pos_x,pos_inicial)
     grupo_de_plataforma.add(plat_movel)
@@ -33,6 +34,14 @@ tutorial=True
 space_press=0
 timer=0
 clock=pygame.time.Clock()
+
+#Sounds
+vida = pygame.mixer.Sound('sons/Ganhando_vida.mp3')
+dano_ep = pygame.mixer.Sound('sons/maluco_doente.mp3')
+game_over = pygame.mixer.Sound('sons/game_over.mp3')
+boraa = pygame.mixer.Sound('sons/bora.mp3')
+hora_do_show = pygame.mixer.Sound('sons/hora_do_show.mp3')
+eita = pygame.mixer.Sound('sons/eita.mp3')
 
 #Placar de pontos:
 pontos=0
@@ -113,6 +122,8 @@ while tutorial:
             tempo_entre_img_tut = 0
             if t > 16:
                 t = 0
+        if t == 12:
+            boraa.play()
     else:
         if tempo_entre_img_tut > 500:
             tela_i_tut=pygame.image.load(lista_img_tut[t])
@@ -165,11 +176,14 @@ while selecao:
         tempo_entre_img_sel = 0
         if w > 11:
             w = 0
+#Musica de Fundo
+pygame.mixer.music.load('sons/musica.wav')
+pygame.mixer.music.play(-1)
 
+hora_do_show.play()
 #Loop principal:
 while game:
-    clock.tick(60)
-
+    clock.tick(60) 
     #Eventos:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
@@ -181,6 +195,7 @@ while game:
                 game=False
         if space_press<=3:
             jogador.eventos_teclado(event)
+
 
     #Update Lógica:
     grupo_de_play.update()
@@ -196,8 +211,7 @@ while game:
         if random.random()<0.01:
             novo_pedro=Pedro(grupo_de_play,grupo_de_monitores)
             novo_marcio=Marcio(grupo_de_play,grupo_de_monitores)
-
-    #Colisões:
+    #Colisões
     colisao_jogador_quizz=pygame.sprite.spritecollide(jogador,grupo_de_quizz,True,pygame.sprite.collide_mask)
     colisao_jogador_ep=pygame.sprite.spritecollide(jogador,grupo_de_ep,True,pygame.sprite.collide_mask)
     colisao_jogador_vida=pygame.sprite.spritecollide(jogador,grupo_de_monitores,True,pygame.sprite.collide_mask)
@@ -241,14 +255,18 @@ while game:
     #Colisão quizz:
     if len(colisao_jogador_quizz)>0:
         jogador.obter_dano(100)
+        eita.play()
 
+        
     #Colisão eps:
     if len(colisao_jogador_ep)>0:
         jogador.obter_dano(300)
+        dano_ep.play()
 
     #Colisão monitores:
     if len(colisao_jogador_vida)>0:
         jogador.obter_vida(200)
+        vida.play()
     
     #Zerar pontos:
     if jogador.rect.bottom==590:
