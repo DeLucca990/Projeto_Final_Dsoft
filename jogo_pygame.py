@@ -115,7 +115,7 @@ while selecao:
         tempo_entre_img_sel = 0
         if w > 11:
             w = 0
-
+space_press=0
 #Loop principal:
 while game:
     clock.tick(60)
@@ -125,9 +125,12 @@ while game:
         if event.type==pygame.QUIT:
             game=False
         if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_SPACE:
+                space_press+=1
             if event.key==pygame.K_ESCAPE:
                 game=False
-        jogador.eventos_teclado(event)
+        if space_press<3:
+            jogador.eventos_teclado(event)
 
     #Update Lógica:
     grupo_de_play.update()
@@ -153,6 +156,8 @@ while game:
         colisao_ep_plat=pygame.sprite.spritecollide(plat,grupo_de_ep,True,pygame.sprite.collide_mask)
 
     #Colisão plataforma móvel:
+    if colisao_jogador_mesa:
+        space_press=0
     tolerancia_colisao=10
     for plat_movel in colisao_jogador_mesa:
         if abs(jogador.rect.left - plat_movel.rect.right)<tolerancia_colisao:
@@ -198,6 +203,7 @@ while game:
     #Zerar pontos:
     if jogador.rect.bottom==590:
         pontos=0
+        space_press=0
     #Fonte
     text = font.render(f'LP:{int(jogador.porcentagem_vida)}', True, (255,255,255))
     text_rect = (20,40)
