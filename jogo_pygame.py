@@ -129,7 +129,7 @@ while game:
                 space_press+=1
             if event.key==pygame.K_ESCAPE:
                 game=False
-        if space_press<3:
+        if space_press<=3:
             jogador.eventos_teclado(event)
 
     #Update Lógica:
