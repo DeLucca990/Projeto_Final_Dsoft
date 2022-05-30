@@ -206,7 +206,7 @@ while game:
         timer=0
         if random.random()<0.2:
             novo_quizz=Quizz(grupo_de_play,grupo_de_quizz)
-        if random.random()<0.05:
+        if random.random()<0.08:
             novo_ep1=Ep1(grupo_de_play,grupo_de_ep)
             novo_ep2=Ep2(grupo_de_play,grupo_de_ep)
         if random.random()<0.01:
@@ -274,9 +274,9 @@ while game:
         pontos=0
         space_press=0
     #Fonte
-    text = font.render(f'LP:{int(jogador.porcentagem_vida)}', True, (255,255,255))
-    text_rect = (20,40)
-    texto_pontos=exibir_pontuacao(pontos,24,(240, 159, 10))
+    text = font.render(f'LP:{int(jogador.porcentagem_vida)}', True, (0,0,0))
+    text_rect = (330,12)
+    texto_pontos=exibir_pontuacao(pontos,24,(255, 255, 255))
 
     #Draw:
     window.blit(fundo,(0,0))
@@ -284,7 +284,7 @@ while game:
     grupo_de_play.draw(window)
     pygame.draw.rect(window, (255,0,0), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
     pygame.draw.rect(window,(255,255,255),(10,10,jogador.comprimento_barra_vida,25),4)
-    window.blit(texto_pontos,(780,10))
+    window.blit(texto_pontos,(780,68))
     window.blit(text,text_rect)
     pygame.display.update()
 pygame.quit()
