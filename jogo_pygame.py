@@ -30,6 +30,7 @@ game=True
 selecao=True
 intro=True
 tutorial=True
+space_press=0
 timer=0
 clock=pygame.time.Clock()
 
@@ -112,8 +113,8 @@ while tutorial:
             tempo_entre_img_tut = 0
             if t > 16:
                 t = 0
-    if t != 6 and t != 9 and t != 12:
-        if tempo_entre_img_tut > 1000:
+    else:
+        if tempo_entre_img_tut > 500:
             tela_i_tut=pygame.image.load(lista_img_tut[t])
             window.blit(tela_i_tut,(0,0))
             pygame.display.update()
@@ -164,7 +165,7 @@ while selecao:
         tempo_entre_img_sel = 0
         if w > 11:
             w = 0
-space_press=0
+
 #Loop principal:
 while game:
     clock.tick(60)
