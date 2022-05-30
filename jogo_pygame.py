@@ -103,14 +103,24 @@ while tutorial:
                 tutorial=False
     clock.tick(60)
     tempo_entre_img_tut += timer_tut.tick()
-    if tempo_entre_img_tut > 1000:
-        tela_i_tut=pygame.image.load(lista_img_tut[t])
-        window.blit(tela_i_tut,(0,0))
-        pygame.display.update()
-        t += 1
-        tempo_entre_img_tut = 0
-        if t > 16:
-            t = 0
+    if t == 6 or t == 9 or t == 12:
+        if tempo_entre_img_tut > 4000:
+            tela_i_tut=pygame.image.load(lista_img_tut[t])
+            window.blit(tela_i_tut,(0,0))
+            pygame.display.update()
+            t += 1
+            tempo_entre_img_tut = 0
+            if t > 16:
+                t = 0
+    if t != 6 and t != 9 and t != 12:
+        if tempo_entre_img_tut > 1000:
+            tela_i_tut=pygame.image.load(lista_img_tut[t])
+            window.blit(tela_i_tut,(0,0))
+            pygame.display.update()
+            t += 1
+            tempo_entre_img_tut = 0
+            if t > 16:
+                t = 0
 
 #Tela seleção de personagem:
 tempo_entre_img_sel = 0
