@@ -32,6 +32,7 @@ game=True
 selecao=True
 intro=True
 tutorial=True
+pre_jogo=True
 space_press=0
 timer=0
 clock=pygame.time.Clock()
@@ -177,9 +178,40 @@ while selecao:
         tempo_entre_img_sel = 0
         if w > 11:
             w = 0
+
+#Pré jogo:
+tempo_entre_img_pre = 0
+p = 0
+lista_img_pre=['img/telas/pre_1.png','img/telas/pre_2.png','img/telas/pre_3.png','img/telas/pre_4.png','img/telas/pre_5.png',
+'img/telas/pre_6.png','img/telas/img_fundo.png']
+timer_pre = pygame.time.Clock()
+tela_i_pre=pygame.image.load(lista_img_pre[p])
+window.blit(tela_i_pre,(0,0))
+pygame.display.update()
+
+while pre_jogo:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            pre_jogo=False
+            game=False
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_ESCAPE:
+                pre_jogo=False
+                game=False
+    clock.tick(60)
+    tempo_entre_img_pre += timer_pre.tick()
+    if tempo_entre_img_pre > 400:
+        tela_i_pre=pygame.image.load(lista_img_pre[p])
+        window.blit(tela_i_pre,(0,0))
+        pygame.display.update()
+        p += 1
+        tempo_entre_img_pre = 0
+        if p ==7:
+            pre_jogo=False
+      
 #Musica de Fundo
-pygame.mixer.music.load('sons/musica.wav')
-pygame.mixer.music.play(-1)
+#pygame.mixer.music.load('sons/musica.wav')
+#pygame.mixer.music.play(-1)
 
 hora_do_show.play()
 #Loop principal:
