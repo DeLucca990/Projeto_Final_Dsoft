@@ -196,8 +196,8 @@ while pre_jogo:
             pre_jogo=False
       
 #Musica de Fundo
-#pygame.mixer.music.load('sons/musica.wav')
-#pygame.mixer.music.play(-1)
+pygame.mixer.music.load('sons/musica_de_fundo.mp3')
+pygame.mixer.music.play(-1)
 
 hora_do_show.play()
 #Loop principal:
