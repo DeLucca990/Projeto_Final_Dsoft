@@ -65,14 +65,10 @@ pygame.display.update()
 while intro:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
-            intro=False
-            selecao=False
-            game=False
+            pygame.quit()
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_ESCAPE:
-                intro=False
-                selecao=False
-                game=False
+                pygame.quit()
             if event.key==pygame.K_SPACE:
                 intro=False
     clock.tick(60)
@@ -101,22 +97,16 @@ pygame.display.update()
 while tutorial:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
-            intro=False
-            selecao=False
-            tutorial=False
-            game=False
+            pygame.quit()
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_ESCAPE:
-                intro=False
-                selecao=False
-                tutorial=False
-                game=False
+                pygame.quit()
             if event.key==pygame.K_SPACE:
                 tutorial=False
     clock.tick(60)
     tempo_entre_img_tut += timer_tut.tick()
     if t == 6 or t == 9 or t == 12:
-        if tempo_entre_img_tut > 4000:
+        if tempo_entre_img_tut > 3000:
             tela_i_tut=pygame.image.load(lista_img_tut[t])
             window.blit(tela_i_tut,(0,0))
             pygame.display.update()
@@ -133,8 +123,8 @@ while tutorial:
             pygame.display.update()
             t += 1
             tempo_entre_img_tut = 0
-            if t > 16:
-                t = 0
+            if t == 17:
+                tutorial=False
 
 #Tela seleção de personagem:
 tempo_entre_img_sel = 0
@@ -150,12 +140,10 @@ pygame.display.update()
 while selecao:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
-            selecao=False
-            game=False
+            pygame.quit()
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_ESCAPE:
-                selecao=False
-                game=False
+                pygame.quit()
             if event.key==pygame.K_1:
                 jogador=Personagem_r()
                 grupo_de_play.add(jogador)
@@ -192,12 +180,10 @@ pygame.display.update()
 while pre_jogo:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
-            pre_jogo=False
-            game=False
+            pygame.quit()
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_ESCAPE:
-                pre_jogo=False
-                game=False
+                pygame.quit()
     clock.tick(60)
     tempo_entre_img_pre += timer_pre.tick()
     if tempo_entre_img_pre > 400:
@@ -228,7 +214,6 @@ while game:
                 game=False
         if space_press<=3:
             jogador.eventos_teclado(event)
-
 
     #Update Lógica:
     grupo_de_play.update()
