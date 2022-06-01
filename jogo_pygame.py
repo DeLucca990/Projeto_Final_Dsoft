@@ -33,7 +33,7 @@ selecao=True
 intro=True
 tutorial=True
 pre_jogo=True
-over=True
+over = True
 space_press=0
 timer=0
 clock=pygame.time.Clock()
@@ -106,6 +106,7 @@ while tutorial:
                 tutorial=False
     clock.tick(60)
     tempo_entre_img_tut += timer_tut.tick()
+    bora =True
     if t == 6 or t == 9 or t == 12:
         if tempo_entre_img_tut > 3000:
             tela_i_tut=pygame.image.load(lista_img_tut[t])
@@ -116,7 +117,10 @@ while tutorial:
             if t > 16:
                 t = 0
         if t == 12:
-            boraa.play()
+            if bora == True:
+                boraa.play(0)
+                bora = False
+
     else:
         if tempo_entre_img_tut > 500:
             tela_i_tut=pygame.image.load(lista_img_tut[t])
@@ -258,7 +262,7 @@ while game:
             jogador.rect.right=plat_movel.rect.left
 
     #Movimento do cenário:
-    if jogador.rect.top<=ALTURA/3:
+    if jogador.rect.top<=ALTURA/2.5:
         jogador.rect.y+=abs(jogador.vel_y)
         for plat in grupo_de_plataforma:
             plat.rect.y+=abs(jogador.vel_y)
@@ -268,7 +272,7 @@ while game:
 
     while len(grupo_de_plataforma)<4:
         larg=random.randrange(50,100)
-        p=Plataforma(random.randrange(10,900-larg),random.randrange(-75,-30,150))
+        p=Plataforma(random.randrange(10,900-larg),random.randrange(-75,-30))
         grupo_de_plataforma.add(p)
     
     #Colisão quizz:
@@ -299,7 +303,7 @@ while game:
         dano_ep.stop()
         game_over.play()
         game=False
-
+    
     #Fonte
     text = font.render(f'LP:{int(jogador.porcentagem_vida)}', True, (0,0,0))
     text_rect = (330,12)
@@ -314,7 +318,6 @@ while game:
     window.blit(texto_pontos,(780,68))
     window.blit(text,text_rect)
     pygame.display.update()
-
 #Tela de game over
 def exibir_pontuacao_final_tex(msg,tamanho,cor):
     fonte=pygame.font.Font('img/itens/PressStart2P.ttf',tamanho)
