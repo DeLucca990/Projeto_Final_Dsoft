@@ -285,7 +285,7 @@ while game:
     if len(colisao_jogador_vida)>0:
         jogador.obter_vida(200)
         vida.play()
-    
+
     #Zerar pontos:
     if jogador.rect.bottom==590:
         pontos=0
@@ -308,7 +308,15 @@ while game:
     window.blit(fundo,(0,0))
     grupo_de_plataforma.draw(window)
     grupo_de_play.draw(window)
-    pygame.draw.rect(window, (255,0,0), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
+    #Cor Barra de Vida
+    if jogador.porcentagem_vida ==100 or jogador.porcentagem_vida == 90 or jogador.porcentagem_vida == 80:
+        pygame.draw.rect(window, (31, 235, 12), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
+    if jogador.porcentagem_vida == 70 or jogador.porcentagem_vida == 60:
+        pygame.draw.rect(window, (232, 218, 16), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
+    if jogador.porcentagem_vida == 50 or jogador.porcentagem_vida == 40 :
+        pygame.draw.rect(window, (232, 132, 12), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
+    if jogador.porcentagem_vida == 30 or jogador.porcentagem_vida == 20 or jogador.porcentagem_vida == 10 or jogador.porcentagem_vida == 0:
+        pygame.draw.rect(window, (255,0,0), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
     pygame.draw.rect(window,(255,255,255),(10,10,jogador.comprimento_barra_vida,25),4)
     window.blit(texto_pontos,(780,68))
     window.blit(text,text_rect)
