@@ -286,6 +286,7 @@ while game:
     if len(colisao_jogador_vida)>0:
         jogador.obter_vida(200)
         vida.play()
+    
     if jogador.porcentagem_vida >50:
         nao = True
     if jogador.porcentagem_vida <=50:
@@ -306,7 +307,7 @@ while game:
         game=False
     
     #Fonte
-    text = font.render(f'LP:{int(jogador.porcentagem_vida)}', True, (0,0,0))
+    text = font.render(f'HP:{int(jogador.porcentagem_vida)}', True, (0,0,0))
     text_rect = (330,12)
     texto_pontos=exibir_pontuacao(pontos,24,(255, 255, 255))
 
