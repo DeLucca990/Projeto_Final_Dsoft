@@ -42,7 +42,6 @@ clock=pygame.time.Clock()
 vida = pygame.mixer.Sound('sons/Ganhando_vida.mp3')
 dano_ep = pygame.mixer.Sound('sons/maluco_doente.mp3')
 game_over = pygame.mixer.Sound('sons/game_over.mp3')
-boraa = pygame.mixer.Sound('sons/bora.mp3')
 hora_do_show = pygame.mixer.Sound('sons/hora_do_show.mp3')
 eita = pygame.mixer.Sound('sons/eita.mp3')
 
@@ -116,10 +115,6 @@ while tutorial:
             tempo_entre_img_tut = 0
             if t > 16:
                 t = 0
-        if t == 12:
-            if bora == True:
-                boraa.play(0)
-                bora = False
 
     else:
         if tempo_entre_img_tut > 500:
@@ -349,8 +344,6 @@ while over:
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_ESCAPE:
                 pygame.quit()
-            if event.key==pygame.K_SPACE:
-                over=False
     clock.tick(60)
     tempo_entre_img_fim += timer_fim.tick()
     if tempo_entre_img_fim > 300:
@@ -363,3 +356,4 @@ while over:
         tempo_entre_img_fim = 0
         if f > 5:
             f = 0
+pygame.quit()
