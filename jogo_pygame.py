@@ -33,6 +33,7 @@ selecao=True
 intro=True
 tutorial=True
 pre_jogo=True
+over=True
 space_press=0
 timer=0
 clock=pygame.time.Clock()
@@ -257,7 +258,7 @@ while game:
             jogador.rect.right=plat_movel.rect.left
 
     #Movimento do cenário:
-    if jogador.rect.top<=ALTURA/2.5:
+    if jogador.rect.top<=ALTURA/3:
         jogador.rect.y+=abs(jogador.vel_y)
         for plat in grupo_de_plataforma:
             plat.rect.y+=abs(jogador.vel_y)
@@ -267,7 +268,7 @@ while game:
 
     while len(grupo_de_plataforma)<4:
         larg=random.randrange(50,100)
-        p=Plataforma(random.randrange(10,900-larg),random.randrange(-75,-30))
+        p=Plataforma(random.randrange(10,900-larg),random.randrange(-75,-30,150))
         grupo_de_plataforma.add(p)
     
     #Colisão quizz:
@@ -290,6 +291,15 @@ while game:
     if jogador.rect.bottom==590:
         pontos=0
         space_press=0
+
+    #Personagem morre:
+    if jogador.porcentagem_vida==0:
+        pygame.mixer.music.stop()
+        eita.stop()
+        dano_ep.stop()
+        game_over.play()
+        game=False
+
     #Fonte
     text = font.render(f'LP:{int(jogador.porcentagem_vida)}', True, (0,0,0))
     text_rect = (330,12)
@@ -304,4 +314,48 @@ while game:
     window.blit(texto_pontos,(780,68))
     window.blit(text,text_rect)
     pygame.display.update()
+
+#Tela de game over
+def exibir_pontuacao_final_tex(msg,tamanho,cor):
+    fonte=pygame.font.Font('img/itens/PressStart2P.ttf',tamanho)
+    mensagem='Final Score'
+    texto_formatado=fonte.render(mensagem,True,cor)
+    return texto_formatado
+def exibir_pontuacao_final_pont(msg,tamanho,cor):
+    fonte=pygame.font.Font('img/itens/PressStart2P.ttf',tamanho)
+    mensagem=f'{msg}'
+    texto_formatado=fonte.render(mensagem,True,cor)
+    return texto_formatado
+
+texto_pontos_final_tex=exibir_pontuacao_final_tex(pontos,20,(0, 0, 0))
+texto_pontos_final_pont=exibir_pontuacao_final_pont(pontos,45,(0,0,0))
+
+tempo_entre_img_fim = 0
+f = 0
+lista_img_fim=['img/telas/over_1.png','img/telas/over_2.png','img/telas/over_3.png','img/telas/over_4.png','img/telas/over_5.png',
+'img/telas/over_6.png']
+timer_fim = pygame.time.Clock()
+tela_i_fim=pygame.image.load(lista_img_fim[f])
+window.blit(tela_i_fim,(0,0))
+pygame.display.update()
+
+while over:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            pygame.quit()
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_ESCAPE:
+                pygame.quit()
+    clock.tick(60)
+    tempo_entre_img_fim += timer_fim.tick()
+    if tempo_entre_img_fim > 300:
+        tela_i_fim=pygame.image.load(lista_img_fim[f])
+        window.blit(tela_i_fim,(0,0))
+        window.blit(texto_pontos_final_tex,(775,220))
+        window.blit(texto_pontos_final_pont,(820,265))
+        pygame.display.update()
+        f += 1
+        tempo_entre_img_fim = 0
+        if f > 5:
+            f = 0
 pygame.quit()
