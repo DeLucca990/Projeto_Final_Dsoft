@@ -206,12 +206,12 @@ while game:
     #Eventos:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
-            game=False
+            pygame.quit()
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_SPACE:
                 space_press+=1
             if event.key==pygame.K_ESCAPE:
-                game=False
+                pygame.quit()
         if space_press<=3:
             jogador.eventos_teclado(event)
 
