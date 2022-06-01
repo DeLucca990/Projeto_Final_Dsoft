@@ -346,6 +346,8 @@ while over:
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_ESCAPE:
                 pygame.quit()
+            if event.key==pygame.K_SPACE:
+                over=False
     clock.tick(60)
     tempo_entre_img_fim += timer_fim.tick()
     if tempo_entre_img_fim > 300:
@@ -358,4 +360,3 @@ while over:
         tempo_entre_img_fim = 0
         if f > 5:
             f = 0
-pygame.quit()
