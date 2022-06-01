@@ -44,6 +44,7 @@ dano_ep = pygame.mixer.Sound('sons/maluco_doente.mp3')
 game_over = pygame.mixer.Sound('sons/game_over.mp3')
 hora_do_show = pygame.mixer.Sound('sons/hora_do_show.mp3')
 eita = pygame.mixer.Sound('sons/eita.mp3')
+vai_da_nao = pygame.mixer.Sound('sons/vai_da_nao.mp3')
 
 #Placar de pontos:
 pontos=0
@@ -285,7 +286,12 @@ while game:
     if len(colisao_jogador_vida)>0:
         jogador.obter_vida(200)
         vida.play()
-
+    if jogador.porcentagem_vida >50:
+        nao = True
+    if jogador.porcentagem_vida <=50:
+        if nao == True:
+            vai_da_nao.play()
+            nao = False
     #Zerar pontos:
     if jogador.rect.bottom==590:
         pontos=0
