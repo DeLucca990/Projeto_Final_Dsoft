@@ -3,6 +3,7 @@ import random
 from personagens_class import *
 from arremessaveis_class import *
 from plataforma_class import *
+from easteregg_class import *
 
 #Iniciando o Game:
 pygame.init()
@@ -14,6 +15,8 @@ window=pygame.display.set_mode((LARGURA,ALTURA))
 pygame.display.set_caption('Dessoft Kong')
 
 #Objetos:
+pelicas=Pelicano()
+grupo_de_ee=pygame.sprite.Group()
 grupo_de_play=pygame.sprite.Group()
 grupo_de_ep=pygame.sprite.Group()
 grupo_de_quizz=pygame.sprite.Group()
@@ -217,6 +220,7 @@ while game:
             jogador.eventos_teclado(event)
 
     #Update Lógica:
+    grupo_de_ee.update()
     grupo_de_play.update()
     grupo_de_plataforma.update()
     timer+=1
@@ -293,6 +297,15 @@ while game:
         if nao == True:
             vai_da_nao.play()
             nao = False
+
+    if pontos!=40:
+        isso=True
+    if pontos==40:
+        if isso==True:
+            pelicas=Pelicano()
+            grupo_de_ee.add(pelicas)
+            isso=False
+
     #Zerar pontos:
     if jogador.rect.bottom==590:
         pontos=0
@@ -315,6 +328,7 @@ while game:
     window.blit(fundo,(0,0))
     grupo_de_plataforma.draw(window)
     grupo_de_play.draw(window)
+
     #Cor Barra de Vida
     if jogador.porcentagem_vida ==100 or jogador.porcentagem_vida == 90 or jogador.porcentagem_vida == 80:
         pygame.draw.rect(window, (31, 235, 12), (10,10,jogador.vida_atual/jogador.vida_ratio,25))
@@ -327,7 +341,9 @@ while game:
     pygame.draw.rect(window,(255,255,255),(10,10,jogador.comprimento_barra_vida,25),4)
     window.blit(texto_pontos,(780,68))
     window.blit(text,text_rect)
+    grupo_de_ee.draw(window)
     pygame.display.update()
+
 #Tela de game over
 def exibir_pontuacao_final_tex(msg,tamanho,cor):
     fonte=pygame.font.Font('img/itens/PressStart2P.ttf',tamanho)
