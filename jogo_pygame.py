@@ -239,8 +239,6 @@ while game:
     colisao_jogador_ep=pygame.sprite.spritecollide(jogador,grupo_de_ep,True,pygame.sprite.collide_mask)
     colisao_jogador_vida=pygame.sprite.spritecollide(jogador,grupo_de_monitores,True,pygame.sprite.collide_mask)
     colisao_jogador_mesa=pygame.sprite.spritecollide(jogador,grupo_de_plataforma,False)
-    for plat in grupo_de_plataforma:
-        colisao_ep_plat=pygame.sprite.spritecollide(plat,grupo_de_ep,True,pygame.sprite.collide_mask)
 
     #Colisão plataforma móvel:
     if colisao_jogador_mesa:
@@ -298,9 +296,10 @@ while game:
             vai_da_nao.play()
             nao = False
 
-    if pontos!=40:
+    #Easter egg    
+    if pontos!=1000:
         isso=True
-    if pontos==40:
+    if pontos==1000:
         if isso==True:
             pelicas=Pelicano()
             grupo_de_ee.add(pelicas)
