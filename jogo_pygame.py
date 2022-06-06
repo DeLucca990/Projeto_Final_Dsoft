@@ -5,6 +5,7 @@ from personagens_class import *
 from arremessaveis_class import *
 from plataforma_class import *
 from easteregg_class import *
+import sys
 
 tudo=True
 while tudo:
@@ -74,9 +75,11 @@ while tudo:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_ESCAPE:
                     pygame.quit()
+                    sys.exit()
                 if event.key==pygame.K_SPACE:
                     intro=False
         clock.tick(60)
@@ -106,9 +109,11 @@ while tudo:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_ESCAPE:
                     pygame.quit()
+                    sys.exit()
                 if event.key==pygame.K_SPACE:
                     tutorial=False
         clock.tick(60)
@@ -149,9 +154,11 @@ while tudo:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_ESCAPE:
                     pygame.quit()
+                    sys.exit()
                 if event.key==pygame.K_1:
                     jogador=Personagem_r()
                     grupo_de_play.add(jogador)
@@ -189,9 +196,11 @@ while tudo:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_ESCAPE:
                     pygame.quit()
+                    sys.exit()
         clock.tick(60)
         tempo_entre_img_pre += timer_pre.tick()
         if tempo_entre_img_pre > 400:
@@ -216,11 +225,13 @@ while tudo:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_SPACE:
                     space_press+=1
                 if event.key==pygame.K_ESCAPE:
                     pygame.quit()
+                    sys.exit()
             if space_press<=3:
                 jogador.eventos_teclado(event)
 
@@ -378,9 +389,11 @@ while tudo:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_ESCAPE:
                     pygame.quit()
+                    sys.exit()
                 if event.key==pygame.K_SPACE:
                     game=True
                     selecao=True
