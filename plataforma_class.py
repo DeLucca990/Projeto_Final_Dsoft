@@ -1,5 +1,4 @@
 import pygame
-from personagens_class import *
 
 class Plataforma(pygame.sprite.Sprite):
     def __init__(self,pos_x,pos_y):

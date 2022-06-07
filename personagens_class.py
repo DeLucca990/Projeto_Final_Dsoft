@@ -1,5 +1,4 @@
 import pygame
-from plataforma_class import *
 
 VX_RIGHT=5
 VX_LEFT=-VX_RIGHT
