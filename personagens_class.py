@@ -9,12 +9,12 @@ ESCALA2=60
 LARGURA=50
 ALTURA=50
 
-#Pulga
-class Personagem_p(pygame.sprite.Sprite):
-    def __init__(self):
+
+class Personagem(pygame.sprite.Sprite):
+    def __init__(self, imagem):
         pygame.sprite.Sprite.__init__(self)
         self.lado='parado direita'
-        self.image=pygame.image.load('img/persona/pulga_parado_d.png')
+        self.image=pygame.image.load(imagem)
         self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
         self.rect=pygame.Rect(0,600,LARGURA,ALTURA)
         self.vel_x=0
@@ -27,31 +27,31 @@ class Personagem_p(pygame.sprite.Sprite):
         self.porcentagem_vida = self.vida_atual / self.vida_maxima * 100
         self.vida_ratio = self.vida_maxima / self.comprimento_barra_vida
         
-    def eventos_teclado(self,event):
+    def eventos_teclado(self,event,imagem):
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_SPACE:
                 self.lado='pulando'
                 self.vertical_state = 'pulando'
-                self.image=pygame.image.load('img/persona/pulga_pulo.png')
+                self.image=pygame.image.load(imagem)
                 self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
                 self.vel_y=-4 
 
-    def update(self,*args):
+    def update(self,imagem1,imagem2,imagem3,*args):
         keys=pygame.key.get_pressed()
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             self.lado='esquerda'
-            self.image=pygame.image.load('img/persona/pulga_esquerda.png')
+            self.image=pygame.image.load(imagem1)
             self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
             self.vel_x =VX_LEFT
         elif keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.lado='direita'
-            self.image=pygame.image.load('img/persona/pulga_direita.png')
+            self.image=pygame.image.load(imagem2)
             self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
             self.vel_x = VX_RIGHT
         else:
             self.lado='parado direita'
             if self.vertical_state == 'caindo':
-                self.image=pygame.image.load('img/persona/pulga_parado_d.png')
+                self.image=pygame.image.load(imagem3)
                 self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
             self.vel_x=0
             self.horizontal_state = 'none'
@@ -85,156 +85,32 @@ class Personagem_p(pygame.sprite.Sprite):
         if self.vida_atual >= self.vida_maxima:
             self.vida_atual = self.vida_maxima
 
-#Rafa
-class Personagem_r(pygame.sprite.Sprite):
+class Personagem_p(Personagem):
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.lado='parado direita'
-        self.image=pygame.image.load('img/persona/rafa_parado_d.png')
-        self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-        self.rect=pygame.Rect(0,600,LARGURA,ALTURA)
-        self.vel_x=0
-        self.vel_y=0
-        self.gravidade=0.1
-        self.vertical_state = 'caindo'
-        self.vida_atual = 1000
-        self.vida_maxima = 1000
-        self.comprimento_barra_vida = 300
-        self.porcentagem_vida = self.vida_atual / self.vida_maxima * 100
-        self.vida_ratio = self.vida_maxima / self.comprimento_barra_vida
-        
+        super().__init__('img/persona/pulga_parado_d.png')
+    
     def eventos_teclado(self,event):
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_SPACE:
-                self.lado='pulando'
-                self.vertical_state = 'pulando'
-                self.image=pygame.image.load('img/persona/rafa_pulo.png')
-                self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-                self.vel_y=-4 
+        super().eventos_teclado(event,'img/persona/pulga_pulo.png')
 
     def update(self,*args):
-        keys=pygame.key.get_pressed()
-        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            self.lado='esquerda'
-            self.image=pygame.image.load('img/persona/rafa_esquerda.png')
-            self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-            self.vel_x =VX_LEFT
-        elif keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            self.lado='direita'
-            self.image=pygame.image.load('img/persona/rafa_direita.png')
-            self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-            self.vel_x = VX_RIGHT
-        else:
-            self.lado='parado direita'
-            if self.vertical_state == 'caindo':
-                self.image=pygame.image.load('img/persona/rafa_parado_d.png')
-                self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-            self.vel_x=0
-            self.horizontal_state = 'none'
-            
-        self.rect.x+=self.vel_x
-        self.rect.y+=self.vel_y
-        self.vel_y+=self.gravidade
-        if self.vel_y>=0:
-            self.vertical_state = 'caindo'
+        super().update('img/persona/pulga_esquerda.png','img/persona/pulga_direita.png','img/persona/pulga_parado_d.png',*args)
 
-        if self.rect.top<0:
-            self.rect.top=0
-        if self.rect.bottom>590:
-            self.rect.bottom=590
-        if self.rect.left<0:
-            self.rect.left=0
-        if self.rect.right>1030:
-            self.rect.right=1030
-
-        self.porcentagem_vida = self.vida_atual / self.vida_maxima * 100
-
-    def obter_dano(self,quantidade):
-        if self.vida_atual > 0:
-            self.vida_atual -= quantidade
-        if self.vida_atual <= 0:
-            self.vida_atual = 0
-
-    def obter_vida(self,quantidade):
-        if self.vida_atual < self.vida_maxima:
-            self.vida_atual += quantidade
-        if self.vida_atual >= self.vida_maxima:
-            self.vida_atual = self.vida_maxima
-
-#Ferrrrrnando        
-class Personagem_f(pygame.sprite.Sprite):
+class Personagem_r(Personagem):
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.lado='parado direita'
-        self.image=pygame.image.load('img/persona/fernando_parado_d.png')
-        self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-        self.rect=pygame.Rect(0,600,LARGURA,ALTURA)
-        self.vel_x=0
-        self.vel_y=0
-        self.gravidade=0.1
-        self.vertical_state = 'caindo'
-        self.vida_atual = 1000
-        self.vida_maxima = 1000
-        self.comprimento_barra_vida = 300
-        self.porcentagem_vida = self.vida_atual / self.vida_maxima * 100
-        self.vida_ratio = self.vida_maxima / self.comprimento_barra_vida
-        
+        super().__init__('img/persona/rafa_parado_d.png')
+    
     def eventos_teclado(self,event):
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_SPACE:
-                self.lado='pulando'
-                self.vertical_state = 'pulando'
-                self.image=pygame.image.load('img/persona/fernando_pulo.png')
-                self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-                self.vel_y=-4 
+        super().eventos_teclado(event,'img/persona/rafa_pulo.png')
 
     def update(self,*args):
-        keys=pygame.key.get_pressed()
-        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            self.lado='esquerda'
-            self.image=pygame.image.load('img/persona/fernando_esquerda.png')
-            self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-            self.vel_x =VX_LEFT
-        elif keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            self.lado='direita'
-            self.image=pygame.image.load('img/persona/fernando_direita.png')
-            self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-            self.vel_x = VX_RIGHT
-        else:
-            self.lado='parado direita'
-            if self.vertical_state == 'caindo':
-                self.image=pygame.image.load('img/persona/fernando_parado_d.png')
-                self.image=pygame.transform.scale(self.image,[ESCALA1,ESCALA2])
-            self.vel_x=0
-            self.horizontal_state = 'none'
-            
-        self.rect.x+=self.vel_x
-        self.rect.y+=self.vel_y
-        self.vel_y+=self.gravidade
-        if self.vel_y>=0:
-            self.vertical_state = 'caindo'
+        super().update('img/persona/rafa_esquerda.png','img/persona/rafa_direita.png','img/persona/rafa_parado_d.png',*args)
 
-        if self.rect.top<0:
-            self.rect.top=0
-        if self.rect.bottom>590:
-            self.rect.bottom=590
-        if self.rect.left<0:
-            self.rect.left=0
-        if self.rect.right>1030:
-            self.rect.right=1030
+class Personagem_f(Personagem):
+    def __init__(self):
+        super().__init__('img/persona/fernando_parado_d.png')
+    
+    def eventos_teclado(self,event):
+        super().eventos_teclado(event,'img/persona/fernando_pulo.png')
 
-        self.porcentagem_vida = self.vida_atual / self.vida_maxima * 100
-
-    def obter_dano(self,quantidade):
-        if self.vida_atual > 0:
-            self.vida_atual -= quantidade
-        if self.vida_atual <= 0:
-            self.vida_atual = 0
-
-    def obter_vida(self,quantidade):
-        if self.vida_atual < self.vida_maxima:
-            self.vida_atual += quantidade
-        if self.vida_atual >= self.vida_maxima:
-            self.vida_atual = self.vida_maxima     
-        
-            
+    def update(self,*args):
+        super().update('img/persona/fernando_esquerda.png','img/persona/fernando_direita.png','img/persona/fernando_parado_d.png',*args)
